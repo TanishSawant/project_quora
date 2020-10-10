@@ -49,3 +49,121 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     </body>
 </html>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap");
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Poppins;
+}
+
+html{
+    position: relative;;
+    width: 100%;
+    height: 100vh;
+    background-image:url("https://images.pexels.com/photos/3759067/pexels-photo-3759067.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+}
+
+body{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flexbox;
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+    overflow-x: hidden;
+    justify-content: space-around; 
+
+}
+
+.LoginForm{
+    width: 26rem;
+    height: auto;
+    padding: 30px 5px 10px 20px;
+    margin: auto;
+    margin-top: 50px;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.LoginForm div{
+    width: 100%;
+}
+
+.LoginForm div p{
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+}
+
+.LoginForm form.Form div{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-bottom: 30px;
+    width: 300px;
+}
+
+.LoginForm form.Form div label{
+    margin-bottom: 5px;
+}
+
+.LoginForm form.Form div input{
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid white;
+    margin: auto;
+}
+
+.LoginForm form.Form div input:active,
+.LoginForm form.Form div input:focus{
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+.LoginForm form.Form .btn{
+    margin: auto;
+    width: 300px;
+    text-align: center;
+    height: 45px;
+    font-size: 18px;
+    margin-top:10px;
+    background-color:#FFFDD0;
+}
+
+.LoginForm form.Form .btn:hover{
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+@media (max-width: 500px){
+    .LoginForm{
+        width: 350px;
+        padding: 30px 5px 30px 20px;
+    }
+    
+    .LoginForm form div{
+        width: 250px;
+    }
+
+    .LoginForm form.Form div label{
+        width: 250px;
+        margin: auto;
+        margin-bottom: 5px;
+    }
+
+    .LoginForm form.Form div input{
+        width: 250px;
+    }
+
+    .LoginForm form .btn{
+        width: 250px!important;
+    }
+}
+</style>
