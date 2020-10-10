@@ -17,7 +17,7 @@
             <div class="heading">
                 <p>Sign Up</p>
             </div>
-            <form class="Form" method="POST">
+            <form action="." class="Form" method="POST"> {% csrf_token %}
                 <div class="username-input-div">
                     <label for="username" class="username-label">Username</label>
                     <input type="text" name="username" class="username-input" placeholder="Type your username" required>
@@ -35,7 +35,6 @@
                     <input type="password" name="confirm-password" class="password-input" placeholder="Confirm your password" required>
                 </div>
                 
-
                 <div class="">
                     <button type="submit" class="btn" style=" font-size:130%">Sign Up</button>
                 </div>
