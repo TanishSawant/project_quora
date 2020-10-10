@@ -19,5 +19,6 @@ def signUpPage(request) :
     username = request.POST.get('username')
     emailid = request.POST.get('Email')
     Password = request.POST.get('password')
-    User.objects.create(user_name = username, password = Password, email = emailid)
+    if username != None:
+        User.objects.create(user_name = username, password = Password, email = emailid)
     return render(request, "pages/SignUp.html", {})
