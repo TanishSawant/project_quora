@@ -9,13 +9,16 @@ from plotly.offline import plot
 from plotly.graph_objs import Scatter
 """ import firebase_admin
 from firebase_admin import credentials
-
 """
-import
 
-cred = credentials.Certificate("C:/Users/tanis/PycharmProjects/Quizlets/project_quora/quizapp-76c06s-firebase-adminsdk-z37mu-93f863e1f6.json")
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+cred = credentials.Certificate("pages\quizapp-76c06s-firebase-adminsdk-z37mu-93f863e1f6.json")
 firebase_admin.initialize_app(cred)
 
+db = firestore.client()
 
 def dashboardGraph(request):
     x_data = [x for x in range(1000)]
