@@ -7,10 +7,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
-""" import firebase_admin
-from firebase_admin import credentials
-"""
-
+""" 
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -19,7 +16,14 @@ cred = credentials.Certificate("pages\quizapp-76c06s-firebase-adminsdk-z37mu-93f
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
+print("connected!!")
 
+new_ref = db.collection('user_data').document('ann')
+new_ref.set({
+    'emailid' : 'a@a.com',
+    'username' : 'aa'
+})
+ """
 def dashboardGraph(request):
     x_data = [x for x in range(1000)]
     y_data = [x**2 for x in x_data]
@@ -59,10 +63,15 @@ def signUpPage(request) :
             messages.warning(request, f'Username already exists!')
 
         if Password == Confirm_password:
-             user = User.objects.create_user(username = username, password = Password, email = emailid)
-             user.save()
-             messages.success(request, f'User created with {username}')
-             return redirect('home')
+            user = User.objects.create_user(username = username, password = Password, email = emailid)
+            user.save()
+            messages.success(request, f'User created with {username}')
+            new_ref = db.collection('user_data').document('user' + username + emailid[0:5])
+            new_ref.set({
+                'emailid' : emailid,
+                'username' : username,
+            })
+            return redirect('home')
     return render(request, "pages/SignUp.html", {})
 
 def logout(request):
