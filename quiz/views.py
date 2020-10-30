@@ -66,7 +66,7 @@ def quiz(request):
 def displayQuestion(request,subject, questionid):
     test = Test.objects.first()
     questions = test.question_set.filter(subject = subject)
-    required_question = test.question_set.filter(questionId = questionid)
+    required_question = test.question_set.filter(questionId = questionid).first()
     list1 = [1,2,3]
     question_dict = dict()
     counter = 1
@@ -96,7 +96,7 @@ def displayQuestion(request,subject, questionid):
         counter += 1
     context = {
         #"statement" : required_question[0].statement,
-        "question" : required_question[0],
+        "question" : required_question,
         "questions_dict" : question_dict,
         "first_phy" : phy_dict[1],
         "first_chem" : chem_dict[1],
@@ -112,11 +112,17 @@ def displayQuestion(request,subject, questionid):
         print("---------------------------")
     return render(request, 'quiz/question_detailed.html', context)
 
-def intermediate(request, questionId, score):
+def intermediate(request, option , questionId):
+    print("---------------------------------------------")
+    print("Intermediate was called!!!")
+    print("-------------------------------------")
     test = Test.objects.first()
+    required_question = test.question_set.filter(questionId = questionId).first()
     physics_questions = test.question_set.filter(subject = 'physics')
     chemistry_questions = test.question_set.filter(subject = 'chemistry')
     maths_questions = test.question_set.filter(subject = 'maths')
+
+    score = 0
 
     if questionId[0] == 'P':
         for i in range(len(physics_questions)):
@@ -126,7 +132,38 @@ def intermediate(request, questionId, score):
             a = chemistry_questions[0]
         else:
             a = physics_questions[i+1]
-    print("----------------------------------")
-    print(f"{score}, {questionId}")
-    print("----------------------------------")
-    return redirect(f'/questions/{a.subject}/{a.questionId}/')
+
+    if questionId[0] == 'C':
+        for i in range(len(chemistry_questions)):
+            if chemistry_questions[i].questionId == questionId:
+                break
+        if i+1 == len(chemistry_questions):
+            a = maths_questions[0]
+        else:
+            a = chemistry_questions[i+1]
+
+    if questionId[0] == 'M':
+        for i in range(len(maths_questions)):
+            if maths_questions[i].questionId == questionId:
+                break
+        if i+1 == len(maths_questions):
+            a = maths_questions[len(maths_questions) - 1]
+        else:
+            a = maths_questions[i+1]
+
+    if required_question.CorrectOption == option:
+        score += 4
+    elif option == None:
+        pass
+    else:
+        score -= 1
+
+    print('------------------------------------------------------------')
+    print(option)
+    print('------------------------------------------------------------')
+    
+    context = {
+        'a' : a
+    }
+
+    return render(request, "quiz/intermediate.html", context)

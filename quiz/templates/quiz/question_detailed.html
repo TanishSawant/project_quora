@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <title>Quiz - Gurukul</title>
 	</head>
-    
+
     <body>
         <form class="wrapper" method="POST">
 
@@ -81,23 +81,22 @@
                                     <p>{{ question.optionD }}</p>
                                 </div>
                             </div>
-                            <input type="radio" id="male" name="{{ j.questionId }}" value="A">
+                            <input class="options" type="radio" id="male" name="{{ question.questionId }} " onclick="changeLink(this)" value="A">
                             <label for="male">A</label><br>
-                            <input type="radio" id="female" name="{ {j.questionId }}" value="B">
+                            <input class="options" type="radio" id="female" name="{ {question.questionId }} " onclick="changeLink(this)" value="B">
                             <label for="female">B</label><br>
-                            <input type="radio" id="other" name="{{ j.questionId }}" value="C">
+                            <input class="options" type="radio" id="other" name="{{ question.questionId }} " onclick="changeLink(this)" value="C">
                             <label for="other">C</label><br>
-                            <input type="radio" id="other" name="{{ j.questionId }}" value="D">
-                            <label for="other">D</label> 
-                            <button type="submit">Submit</button>
+                            <input class="options" type="radio" id="other" name="{{ question.questionId }}" onclick="changeLink(this)" value="D">
+                            <label for="other">D</label>
                     </div>
                     <div class="question-footer">
                         <ul class="navbar-nav mr-auto">
+                            <!-- <li class="nav-item">
+                                <a class="nav-link active" id="next" href="">Mark For Review And Next</a>
+                            </li> -->
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">Mark For Review And Next</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/quiz/questions/{{ question.questionId }}/5">Save and Next</a>
+                                <a class="nav-link" id="next1" href="">Save and Next</a>
                             </li>
                         </ul>
                     </div>
@@ -413,7 +412,17 @@
 </style>
 
 
-
 <script>
-        
+
+    console.log("Welcome to js!");
+    function changeLink(item){
+
+        //const href1 = document.getElementById('next');
+        const href2 = document.getElementById('next1');
+
+        //href1.href = "/quiz/questions123/"+item.value+"/{{ question.questionId }}";
+        href2.href = "/quiz/questions123/"+item.value+"/{{ question.questionId }}";
+    }
+
+    
 </script>
