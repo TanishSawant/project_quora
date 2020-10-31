@@ -5,6 +5,13 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from .models import testScoreData , Question, Test
 
+def testList(request):
+    tests = Test.objects.all()
+    context = {
+        "tests" : tests
+    }
+    return render(request, 'quiz/testLists.html', context)
+
 def quiz(request):
     test = Test.objects.first()
     questions = test.question_set.all()

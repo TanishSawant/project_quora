@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Test(models.Model):
     user = models.ForeignKey(User, unique = False, on_delete = models.CASCADE)
     testId = models.TextField(unique = True)
+    description = models.TextField(default="Default Description")
     # question=models.ForeignKey(Question, unique = False, on_delete = models.CASCADE)
 
 class Question(models.Model):
