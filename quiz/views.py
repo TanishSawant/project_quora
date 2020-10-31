@@ -4,6 +4,20 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from .models import testScoreData , Question, Test
+from .tp import getDb
+
+""" import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+cred = credentials.Certificate("pages\quizapp-76c06s-firebase-adminsdk-z37mu-93f863e1f6.json")
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
+print("connected!!")
+ """
+
+db = getDb()
 
 def testList(request):
     tests = Test.objects.all()
@@ -12,8 +26,8 @@ def testList(request):
     }
     return render(request, 'quiz/testLists.html', context)
 
-def quiz(request):
-    test = Test.objects.first()
+def quiz(request, id):
+    test = Test.objects.get(testId = id)
     questions = test.question_set.all()
     physics_questions = test.question_set.filter(subject = 'physics')
     chemistry_questions = test.question_set.filter(subject = 'chemistry')
@@ -128,8 +142,10 @@ def intermediate(request, option , questionId):
     physics_questions = test.question_set.filter(subject = 'physics')
     chemistry_questions = test.question_set.filter(subject = 'chemistry')
     maths_questions = test.question_set.filter(subject = 'maths')
-
+    
+    new_ref = db.collection('user_data').document('userTanish1').collection('questions').document(f'{questionId}')
     score = 0
+
 
     if questionId[0] == 'P':
         for i in range(len(physics_questions)):
@@ -169,6 +185,12 @@ def intermediate(request, option , questionId):
     print(option)
     print('------------------------------------------------------------')
     
+    new_ref.set({
+        'optionSelected' : option,
+        'score' : score
+    })
+    print("added to firebase")
+
     context = {
         'a' : a
     }

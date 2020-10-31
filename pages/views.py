@@ -7,23 +7,30 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
-""" 
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+import quiz.tp as tp
+from quiz.models import Question, Test
 
-cred = credentials.Certificate("pages\quizapp-76c06s-firebase-adminsdk-z37mu-93f863e1f6.json")
-firebase_admin.initialize_app(cred)
+db = tp.getDb()
 
-db = firestore.client()
-print("connected!!")
+""" from firebase_admin import credentials
+from firebase_admin import firestore """
 
-new_ref = db.collection('user_data').document('ann')
-new_ref.set({
-    'emailid' : 'a@a.com',
-    'username' : 'aa'
-})
- """
+def solvedQuestionsList(request):
+    ref = db.collection('user_data').document('userTanish1').collection('questions')
+    questions = ref.stream()
+    qs = []
+    class tempObj():
+        def __init__(self, question, score):
+            self.question = question
+            self.score = score
+
+    for question in questions:
+        qs.append(tempObj(Question.objects.get(questionId = question.id), question.to_dict()['score']))
+    context={
+        'qs' : qs
+    }       
+    return render(request, 'pages/solvedQuestionList.html', context)
+
 def dashboardGraph(request):
     x_data = [x for x in range(1000)]
     y_data = [x**2 for x in x_data]
@@ -66,10 +73,10 @@ def signUpPage(request) :
             user = User.objects.create_user(username = username, password = Password, email = emailid)
             user.save()
             messages.success(request, f'User created with {username}')
-            new_ref = db.collection('user_data').document('user' + username + emailid[0:5])
-            new_ref.set({
-                'emailid' : emailid,
+            ref = db.collection('user_data').document(f'{username}')
+            ref.set({
                 'username' : username,
+                'emailid' : emailid
             })
             return redirect('home')
     return render(request, "pages/SignUp.html", {})

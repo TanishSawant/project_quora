@@ -14,7 +14,6 @@ class Question(models.Model):
     optionB = models.TextField()
     optionC = models.TextField()
     optionD = models.TextField()
-    
     CorrectOption = models.CharField(max_length = 2)
     questionId = models.TextField(unique = True)
     subject = models.CharField(max_length = 50, null = False)
