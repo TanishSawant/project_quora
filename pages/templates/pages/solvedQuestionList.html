@@ -8,12 +8,13 @@
 </head>
 <body>
     <div class="list-group">
+        <h1>Keep on the good work!!</h1>
         {% for q in qs %}
             {% if q.score == 4 %}
-                <a href="#" class="list-group-item list-group-item-action list-group-item-success">{{q.question.statement}}</a>
-            {% else %}   
+                <a href="/quiz/solved/{{q.question.questionId}}" class="list-group-item list-group-item-action list-group-item-success">{{q.question.statement}}</a>
+            {% else %}  
                 <a href="#" class="list-group-item list-group-item-action list-group-item-danger">{{q.question.statement}}</a>     
-            {% endif %}        
+            {% endif %}  
         {% endfor %}
     </div>
 

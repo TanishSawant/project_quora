@@ -17,7 +17,8 @@ def getQuestions():
     ref = db.collection('user_data').document('userTanish1').collection('questions')
     questions = ref.stream()
     for question in questions:
-        print(question.to_dict()['score'])
+        if question.id == 'P1B':    
+            print(question.to_dict()['optionSelected'])
     
     #return list(questions)
 
