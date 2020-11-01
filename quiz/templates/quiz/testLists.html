@@ -16,7 +16,8 @@
     line-height: 1.7;
     box-sizing: border-box;
     height: 300px;
-    background-image: url(https://images.pexels.com/photos/5412/water-blue-ocean.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500);
+    /* background-image: url(https://images.pexels.com/photos/5412/water-blue-ocean.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500); */
+    background-color: #1f1b1b;
     background-size: cover;
     background-repeat: no-repeat;
     box-sizing: border-box;
@@ -68,7 +69,7 @@
         line-height: 18px;
         font-size: 16px;">
         
-        <a href="{% url  'dashboard' %}">
+        <a href="{% url  'dashboard' %}" style="text-decoration-color: #dddddd; text-decoration: none; color: #dddddd; margin-top: 20px;">
             <i class="fa fa-caret-left" aria-hidden="true" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
             --antd-wave-shadow-color: #1890ff;
             font-feature-settings: 'tnum';
@@ -316,30 +317,29 @@ margin-bottom: 10px;">
                             <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
                             <canvas height="43" width="43" class="chartjs-render-monitor" style="display: block; height: 35px; width: 35px;"></canvas></div></div></div>
                             <div class="category">
-                                <div class="title"><a href="startQuiz/{{test.testId}}" style="text-decoration: none; color: #222222;"> Start Quiz </a></div>
+                                <div class="title"><a href="test/{{test.testId}}" style="text-decoration: none; color: #222222;"> Start Quiz </a></div>
                                 <div class="description">{{test.description}}
        </div></div></div>
 
        {% endfor %}
-    </div>
-    
-    </div>
-    
-    </div>
        
-           
-
-
+    </div>
+    
+    </div>
+    
+    </div>
        <div class="intro-area col-md-8"><div class="card-intro-base">
            <div class="explore-paragraph">
                <div class="heading-row">
-                   <h2 class="col">Introduction</h2>
                    <div class="col explore-share-container">
                        <div class=""><div class="share-button__1qQ5">
                            <div>
+                                <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, quod!</h1>
+                                <br>
                                 <p>Test series are offered by Gurukul. Please help us by adding more questions to the database</p>
-                            </div>
-       
+                                <h3>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio ratione modi dolores molestiae dolore! Voluptate asperiores, unde tempore accusantium veritatis quasi repellat quod fuga, blanditiis amet perspiciatis reprehenderit saepe alias?</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas harum omnis nam recusandae, provident nisi officia asperiores ullam, ipsa tempore cumque alias perferendis, repellat quidem soluta fugit amet laboriosam quasi!</p>
+        </div>
     </body>
 </html>
 

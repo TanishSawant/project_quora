@@ -105,7 +105,6 @@ def displayQuestionAlone(request, questionid):
     selectedOption = None
     ref = db.collection('user_data').document('userTanish1').collection('questions')
     questions = ref.stream()
-    
     for question in questions:
         if question.id == questionid:
             selectedOption = question.to_dict()['optionSelected']
@@ -118,6 +117,17 @@ def displayQuestionAlone(request, questionid):
     }
 
     return render(request, 'quiz/singleQuestionView.html', context)
+
+def startTest(request, testid):
+    test = Test.objects.get(testId = testid)
+    qs = test.question_set.all()
+    a = qs[0]
+    print(a)
+    context = {
+        "test":test,
+        "a" : a
+    }
+    return render(request, 'quiz/startTest.html', context)
 
 def displayQuestion(request,subject, questionid):
     test = Test.objects.first()

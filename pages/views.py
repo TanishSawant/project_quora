@@ -25,7 +25,10 @@ def solvedQuestionsList(request):
             self.score = score
 
     for question in questions:
-        qs.append(tempObj(Question.objects.get(questionId = question.id), question.to_dict()['score']))
+        print("HELLO")
+        qs.append(tempObj(Question.objects.get(questionId = f'{question.id}'), question.to_dict()['score']))
+        print("----------------------------------")
+        print(question.id)
     context={
         'qs' : qs
     }

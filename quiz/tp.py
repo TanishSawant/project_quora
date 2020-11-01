@@ -17,16 +17,14 @@ def getQuestions():
     ref = db.collection('user_data').document('userTanish1').collection('questions')
     questions = ref.stream()
     for question in questions:
-        if question.id == 'P1B':    
-            print(question.to_dict()['optionSelected'])
-    
+        print(question.id)
     #return list(questions)
 
-#getQuestions()
+getQuestions()
 
-ref = db.collection('user_data').document('userTanish1').collection('test')
+""" ref = db.collection('user_data').document('userTanish1').collection('test')
 tests = ref.stream()
 size = 0
 for test in tests:
     size += 1
-print(size)
+print(size) """
