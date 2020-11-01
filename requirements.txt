@@ -1,0 +1,6 @@
+Django
+firebase
+firebase_admin
+plotly
+numpy
+pillow
