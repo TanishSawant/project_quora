@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from .models import testScoreData , Question, Test
 from .tp import getDb
+import random
 
 """ import firebase_admin
 from firebase_admin import credentials
@@ -18,6 +19,21 @@ print("connected!!")
  """
 
 db = getDb()
+
+def getRandomQuestion(request):
+    qs = Question.objects.all()
+    arr = []
+    for q in qs:
+        arr.append(q)
+
+    selected = random.choice(arr)
+    print(selected.questionId)
+    context = {
+        "qid" : selected.questionId
+    }
+    return render(request, 'quiz/randomQuestion.html', context)
+
+    
 
 def testList(request):
     tests = Test.objects.all()
@@ -89,7 +105,7 @@ def displayQuestionAlone(request, questionid):
     selectedOption = None
     ref = db.collection('user_data').document('userTanish1').collection('questions')
     questions = ref.stream()
-
+    
     for question in questions:
         if question.id == questionid:
             selectedOption = question.to_dict()['optionSelected']
