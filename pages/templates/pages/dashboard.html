@@ -322,22 +322,31 @@ background: #f7f6f6;">
   </div>
 
 <div class="my-container-grid">
-
  <div class="col-xl-3_col-lg-6_col-12">
         <div class="box-content">
-            <h4 class="box-title">Lorem.</h4>
+            <h4 class="box-title">Questions Solved</h4>
             <div class="content_widget-stat">
-                <div class="percent_bg-warning"><i class="fas_fa-chart-line"></i>53%</div>
+                {% if percent_questions_solved > 50 %}
+                <div class="percent_bg-safe" id="percent_q"><i class="fas_fa-chart-line"></i>{{percent_questions_solved}}%</div>
+                {% elif percent_questions_solved > 25%}
+                <div class="percent_bg-warning" id="percent_q"><i class="fas_fa-chart-line"></i>{{percent_questions_solved}}%</div>
+                {% else %}
+                <div class="percent_bg-danger" id="percent_q"><i class="fas_fa-chart-line"></i>{{percent_questions_solved}}%</div>
+                {% endif %}
                 <div class="right-content">
-                    <h2 class="counter">837</h2>
-                
-                    <p class="text">Lorem, ipsum dolor.</p>
+                    <h2 class="counter">{{solvedQuestions}}</h2>
+                    <p class="text">Carry on.....!</p>
                 </div>
                 <div class="clear"></div>
                 <div class="process-bar">
                     <div class="bar-bg_bg-warning"></div>
-                    <div class="bar_js__width_bg-warning" data-width="70%" style="width: 70%;"></div>
-                
+                    {% if percent_questions_solved > 50 %}
+                    <div class="bar_js__width_bg-safe" id="q_bar" data-width="70%" style="width: 10%;"></div>
+                    {% elif percent_questions_solved > 25%}
+                    <div class="bar_js__width_bg-warning" id="q_bar" data-width="70%" style="width: 10%;"></div>
+                    {% else %}
+                    <div class="bar_js__width_bg-danger" id="q_bar" data-width="70%" style="width: 10%;"></div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -345,19 +354,19 @@ background: #f7f6f6;">
 
     <div class="col-xl-3_col-lg-6_col-12">
         <div class="box-content">
-            <h4 class="box-title">Amet.</h4>
+            <h4 class="box-title">Score Gained</h4>
             <div class="content_widget-stat">
-                <div class="percent_bg-warning"><i class="fas_fa-chart-line"></i>53%</div>
+                <div class="percent_bg-safe" id="percent_score"><i class="fas_fa-chart-line"></i>{{percent_score}}%</div>
                 
                 <div class="right-content">
-                    <h2 class="counter">837</h2>
+                    <h2 class="counter" id="counter">{{score}}</h2>
                 
-                    <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit.</p>
+                    <p class="text">Not bad... But needs some work</p>
                 </div>
                 <div class="clear"></div>
                 <div class="process-bar">
-                    <div class="bar-bg_bg-warning"></div>
-                    <div class="bar_js__width_bg-warning" data-width="70%" style="width: 70%;"></div>
+                    <div class="bar-bg_bg-safe"></div>
+                    <div class="bar_js__width_bg-safe" id="score_bar" data-width="70%" style="width: 100%;"></div>
                 
                 </div>
             </div>
@@ -369,14 +378,14 @@ background: #f7f6f6;">
 
     <div class="col-xl-3_col-lg-6_col-12">
         <div class="box-content">
-            <h4 class="box-title">Aope</h4>
+            <h4 class="box-title">Tests attempted</h4>
             <div class="content_widget-stat">
                 <div class="percent_bg-safe"><i class="fas_fa-chart-line"></i>53%</div>
                 
                 <div class="right-content">
-                    <h2 class="counter">837</h2>
+                    <h2 class="counter">{{number_tests}}</h2>
                 
-                    <p class="text">dolar sit no imer</p>
+                    <p class="text">Check out the list of tests</p>
                 </div>
                 <div class="clear"></div>
                 <div class="process-bar">
@@ -387,17 +396,17 @@ background: #f7f6f6;">
             </div>
         </div>
     </div>
-
+<!-- 
     <div class="col-xl-3_col-lg-6_col-12">
         <div class="box-content">
-            <h4 class="box-title">Latino</h4>
+            <h4 class="box-title">Question Of The Day</h4>
             <div class="content_widget-stat">
                 <div class="percent_bg-danger"><i class="fas_fa-chart-line"></i>53%</div>
                 
                 <div class="right-content">
                     <h2 class="counter">837</h2>
                 
-                    <p class="text">Lorem ipsum dolor, sit amet consectetur adipisicing.</p>
+                    <p class="text">Solve one challanging question everyday</p>
                 </div>
                 <div class="clear"></div>
                 <div class="process-bar">
@@ -407,7 +416,7 @@ background: #f7f6f6;">
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
     <h1>Your TimeLine</h1>
     {% autoescape off %}
@@ -439,6 +448,12 @@ background: #f7f6f6;">
 </script> -->
 </html>
 
+<script>
+    const percent_score = parseFloat(document.getElementById('percent_score').textContent)
+    document.getElementById('score_bar').style.width = `${percent_score}%`;
+    const question_percent = parseFloat(document.getElementById('percent_q').textContent)
+    document.getElementById('q_bar').style.width = `${question_percent}%`;
+</script>
 
 <style>
     .sidenav {

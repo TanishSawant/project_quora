@@ -28,17 +28,44 @@ def solvedQuestionsList(request):
         qs.append(tempObj(Question.objects.get(questionId = question.id), question.to_dict()['score']))
     context={
         'qs' : qs
-    }       
+    }
     return render(request, 'pages/solvedQuestionList.html', context)
 
 def dashboardGraph(request):
+    all_questions = Question.objects.all()
+    total_questions = 0
+    for _ in all_questions:
+        total_questions += 1
+    all_questions = None
+    ref = db.collection('user_data').document('userTanish1').collection('questions')
+    questions = ref.stream()
+    s = 0
+    q = 0
+    for question in questions:
+        q += 1
+        s += question.to_dict()['score']
     x_data = [x for x in range(1000)]
     y_data = [x**2 for x in x_data]
     plot_div = plot([Scatter(x=x_data, y=y_data,
                         mode='lines', name='test',
                         opacity=0.8, marker_color='green')],
                         output_type='div')
-    return render(request, "pages/dashboard.html", context={'plot_div': plot_div})
+
+    new_ref = db.collection('user_data').document('userTanish1').collection('test')
+    tests = new_ref.stream()
+    test_size = 0
+    for test in tests:
+        test_size += 1
+
+    context = {
+        'plot_div' : plot_div,
+        'solvedQuestions' : q,
+        'score' : s,
+        'percent_score' : int(s/(4*q) * 100),
+        'number_tests' : test_size,
+        'percent_questions_solved' : int(q/total_questions * 100)
+    }
+    return render(request, "pages/dashboard.html", context)
 
 
 def home(request):

@@ -22,4 +22,11 @@ def getQuestions():
     
     #return list(questions)
 
-getQuestions()
+#getQuestions()
+
+ref = db.collection('user_data').document('userTanish1').collection('test')
+tests = ref.stream()
+size = 0
+for test in tests:
+    size += 1
+print(size)
