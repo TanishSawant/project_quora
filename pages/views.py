@@ -35,6 +35,10 @@ def solvedQuestionsList(request):
     return render(request, 'pages/solvedQuestionList.html', context)
 
 def dashboardGraph(request):
+    all_tests = Test.objects.all()
+    total_tests = 0
+    for test in all_tests:
+        total_tests += 1
     all_questions = Question.objects.all()
     total_questions = 0
     for _ in all_questions:
@@ -66,7 +70,8 @@ def dashboardGraph(request):
         'score' : s,
         'percent_score' : int(s/(4*q) * 100),
         'number_tests' : test_size,
-        'percent_questions_solved' : int(q/total_questions * 100)
+        'percent_questions_solved' : int(q/total_questions * 100),
+        'test_percentage' : int((test_size / total_tests) * 100)
     }
     return render(request, "pages/dashboard.html", context)
 
