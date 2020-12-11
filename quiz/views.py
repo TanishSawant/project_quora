@@ -94,7 +94,7 @@ def quiz(request, id):
 def displayQuestionAlone(request, questionid):
     q = Question.objects.get(questionId = questionid)
     selectedOption = None
-    ref = db.collection('user_data').document(f'{User.username}').collection('questions')
+    ref = db.collection('user_data').document(f'{request.user.username}').collection('questions')
     questions = ref.stream()
     for question in questions:
         if question.id == questionid:
@@ -179,7 +179,7 @@ def intermediate(request, option , questionId):
     physics_questions = test.question_set.filter(subject = 'physics')
     chemistry_questions = test.question_set.filter(subject = 'chemistry')
     maths_questions = test.question_set.filter(subject = 'maths')
-    new_ref = db.collection('user_data').document(f'{User.username}').collection('questions').document(f'{questionId}')
+    new_ref = db.collection('user_data').document(f'{request.user.username}').collection('questions').document(f'{questionId}')
     score = 0
     if questionId[0] == 'P':
         for i in range(len(physics_questions)):
@@ -242,36 +242,53 @@ def scoreCalc(request, testId):
     physics_questions = test.question_set.filter(subject = 'physics')
     chemistry_questions = test.question_set.filter(subject = 'chemistry')
     maths_questions = test.question_set.filter(subject = 'maths')
-    ref = db.collection('user_data').document(f'{User.username}').collection('questions')
+    ref = db.collection('user_data').document(f'{request.user.username}').collection('questions')
     questions = ref.stream()
     phy_score = 0
     chem_score = 0
     math_score = 0
     total_score = 0
 
+    phy_attempt = 0
+    chem_attempt = 0
+    math_attempt = 0
+    total_attempt = 0
+
     for p in physics_questions:
         for question in questions:
             if p.questionId == question.id:
                 phy_score += question.to_dict()['score']
+                if question.to_dict()['score'] != 0:
+                    phy_attempt += 1                
     
     for p in chemistry_questions:
         for question in questions:
             if p.questionId == question.id:
                 chem_score += question.to_dict()['score']
+                if question.to_dict()['score'] != 0:
+                    chem_attempt=chem_attempt+1
+
 
     for p in maths_questions:
         for question in questions:
             if p.questionId == question.id:
-                math_score += question.to_dict()['score']    
+                math_score += question.to_dict()['score'] 
+                if question.to_dict()['score'] != 0:
+                    math_attempt += 1   
 
     total_score = math_score + phy_score + chem_score
+    total_attempt = math_attempt+phy_attempt+chem_attempt
     context = {
         "p" : phy_score,
         "c" : chem_score,
         "m" : math_score,
-        "t" : total_score
+        "t" : total_score,
+        "pa" : phy_attempt,
+        "ca" : chem_attempt,
+        "ma" : math_attempt,
+        "ta" : total_attempt
     }
-    ref = db.collection('user_data').document(f'{User.username}').collection('test').document(f'{testId}')
+    ref = db.collection('user_data').document(f'{request.user.username}').collection('test').document(f'{testId}')
     ref.set({
         'isComplete' : True,
         'score' : total_score

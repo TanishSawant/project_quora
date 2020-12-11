@@ -16,7 +16,10 @@ db = tp.getDb()
 from firebase_admin import firestore """
 
 def solvedQuestionsList(request):
-    ref = db.collection('user_data').document(f'{User.username}').collection('questions')
+    print("-----------------------------------------------------")
+    print(request.user.username)
+
+    ref = db.collection('user_data').document(f'{request.user.username}').collection('questions')
     questions = ref.stream()
     qs = []
     class tempObj():
@@ -44,7 +47,7 @@ def dashboardGraph(request):
     for _ in all_questions:
         total_questions += 1
     all_questions = None
-    ref = db.collection('user_data').document(f'{User.username}').collection('questions')
+    ref = db.collection('user_data').document(f'{request.user.username}').collection('questions')
     questions = ref.stream()
     s = 0
     q = 0
@@ -58,7 +61,7 @@ def dashboardGraph(request):
                         opacity=0.8, marker_color='green')],
                         output_type='div')
 
-    new_ref = db.collection('user_data').document(f'{User.username}').collection('test')
+    new_ref = db.collection('user_data').document(f'{request.user.username}').collection('test')
     tests = new_ref.stream()
     test_size = 0
     for test in tests:

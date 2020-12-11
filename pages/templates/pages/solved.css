@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap");
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Poppins;
+}
+
+html{
+    width: 100%;
+    height: 100vh;
+}
+
+td{
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+}
+
+div.wrap{
+    width: calc(100%-40px);
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    border-radius: 7px;
+}
+
+div.wrap div.solved{
+    width: 100%;
+    background-color: whitesmoke;
+    padding: 20px;
+    font-weight: 700;
+}
+
+div.wrap div.solved h5{
+    margin: 0;
+    font-weight: 500;
+}
+
+table.questions{
+    width: calc(100% - 40px);
+    padding: 0;
+    margin: 20px;
+    background-color: white;
+}
+
+table.questions thead.question-header tr.question{
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+table.questions tbody.question-body tr.question{
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+table.questions tbody.question-body tr.question td.question-number div.question-number{
+    margin: auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    padding: 7px 0;
+    font-size: 17px;
+    background-color: #66c9c9;
+    color: white;
+    cursor: pointer;
+}
+
+table.questions tbody.question-body tr.question td.question-statement div.question-statement{
+    max-width: 500px!important;
+    margin: auto;
+    max-height: 70px;
+    overflow: hidden;
+}
+
+table.questions tbody.question-body tr.question td.right-wrong div.wrong{
+    width: max-content;
+    margin: auto;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background-color: #ff6f8d;
+    color: white;
+}
+
+table.questions tbody.question-body tr.question td.right-wrong div.right{
+    width: fit-content;
+    margin: auto;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background-color: #00bf85;
+    color: white;
+}

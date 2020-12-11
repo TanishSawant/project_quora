@@ -6,12 +6,127 @@
     <title>Exam Over!!!</title>
 </head>
 <body>
-    <h1>Congo!!!!😁</h1>
-    <ul>
-        <li>Physics marks : {{p}}</li>
-        <li>Chemistry marks : {{c}}</li>
-        <li>Maths marks : {{m}}</li>
-        <li>Total marks : {{t}}</li>
-    </ul>
+
+    <div class="wrapper">
+        <div class="box">
+            {% if t > 5 %}    
+                <h5 style="width: 100%; margin: 5px; text-align: center;">Keep going champ!</h5>
+            {% else %}
+                <h5 style="width: 100%; margin: 5px; text-align: center;">Better Luck Next Time Champ!</h5>
+            {% endif %}
+            <div class="card-item">
+                <img src="./physics.png">
+                <div>
+                    <p>Attempted questions: <span>{{ pa }}</span></p>
+                    <hr>
+                    <p>Total Marks: <span>{{ p }}</span></p>
+                </div>
+            </div>
+            <div class="card-item">
+                <img src="./chemistry.png">
+                <h5>Chemistry</h5>
+                <div>
+                    <p>Attempted questions: <span>{{ca}}</span></p>
+                    <hr>
+                    <p>Total Marks : <span>{{ c }}</span></p>
+                </div>
+            </div>
+            <div class="card-item">
+                <img src="./math.png">
+                <h5>Maths</h5>
+                <div>
+                    <p>Attempted questions: <span>{{ma}}</span></p>
+                    <hr>
+                    <p>Total marks: <span>{{ m }}</span></p>
+                </div>
+            </div>
+            <div class="card-item">
+                <img src="./physics.png">
+                <h5>Full Length Test</h5>
+                <div>
+                    <p>Attempted questions: <span>{{ta}}</span></p>
+                    <hr>
+                    <p>Total Marks: <span>{{t}}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.wrapper .box{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 700px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    justify-content: space-evenly;
+    padding-bottom: 30px;
+}
+
+.wrapper .box .card-item {
+    background: white;
+    width: 270px!important;
+    height: 200px!important;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    padding: 20px 20px;
+    color: #212529;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    margin: 30px;
+}
+
+.wrapper .box .card-item img {
+    margin-bottom: 10px;
+}
+
+.wrapper .box .card-item h5 {
+    margin-bottom: 25px;
+}
+
+.wrapper .box .card-item div p{
+    position: relative;
+    text-align: left;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.wrapper .box .card-item div p span{
+    float: right;
+}
+
+.wrapper .box .card-item div hr {
+    margin: 3px 0px;
+}    
+</style>
