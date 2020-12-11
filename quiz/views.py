@@ -179,7 +179,7 @@ def intermediate(request, option , questionId):
     physics_questions = test.question_set.filter(subject = 'physics')
     chemistry_questions = test.question_set.filter(subject = 'chemistry')
     maths_questions = test.question_set.filter(subject = 'maths')
-    new_ref = db.collection('user_data').document(f'{request.user.username}').collection('questions').document(f'{questionId}')
+    new_ref = db.collection('user_data').document('tanish').collection('questions').document(f'{questionId}')
     score = 0
     if questionId[0] == 'P':
         for i in range(len(physics_questions)):
@@ -242,7 +242,7 @@ def scoreCalc(request, testId):
     physics_questions = test.question_set.filter(subject = 'physics')
     chemistry_questions = test.question_set.filter(subject = 'chemistry')
     maths_questions = test.question_set.filter(subject = 'maths')
-    ref = db.collection('user_data').document(f'{request.user.username}').collection('questions')
+    ref = db.collection('user_data').document('tanish').collection('questions')
     questions = ref.stream()
     phy_score = 0
     chem_score = 0
@@ -288,7 +288,7 @@ def scoreCalc(request, testId):
         "ma" : math_attempt,
         "ta" : total_attempt
     }
-    ref = db.collection('user_data').document(f'{request.user.username}').collection('test').document(f'{testId}')
+    ref = db.collection('user_data').document('tanish').collection('test').document(f'{testId}')
     ref.set({
         'isComplete' : True,
         'score' : total_score

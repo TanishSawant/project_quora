@@ -47,7 +47,10 @@ def dashboardGraph(request):
     for _ in all_questions:
         total_questions += 1
     all_questions = None
-    ref = db.collection('user_data').document(f'{request.user.username}').collection('questions')
+    print("---------------------------")
+    print(request.user.username)
+    print("---------------------------")
+    ref = db.collection('user_data').document(f'{User.username}').collection('questions')
     questions = ref.stream()
     s = 0
     q = 0
@@ -64,7 +67,7 @@ def dashboardGraph(request):
     new_ref = db.collection('user_data').document(f'{request.user.username}').collection('test')
     tests = new_ref.stream()
     test_size = 0
-    for test in tests:
+    for test in all_tests:
         test_size += 1
     percent_score = 0
     if q == 0:
