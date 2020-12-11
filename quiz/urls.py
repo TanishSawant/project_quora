@@ -8,6 +8,6 @@ urlpatterns = [
     path('testList', views.testList ,name='testList'),
     path('solved/<str:questionid>', views.displayQuestionAlone ,name='displayQuestionAlone'),
     path('abcdQuestion', views.getRandomQuestion ,name='getRandomQuestion'),
-    path('test/<str:testid>', views.startTest ,name='startTest')
-    
+    path('test/<str:testid>', views.startTest ,name='startTest'),
+    path('quiz/<str:testId>', views.scoreCalc ,name='finishedTest')
 ]#ruo

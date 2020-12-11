@@ -16,7 +16,7 @@ db = tp.getDb()
 from firebase_admin import firestore """
 
 def solvedQuestionsList(request):
-    ref = db.collection('user_data').document('userTanish1').collection('questions')
+    ref = db.collection('user_data').document(f'{User.username}').collection('questions')
     questions = ref.stream()
     qs = []
     class tempObj():
@@ -44,7 +44,7 @@ def dashboardGraph(request):
     for _ in all_questions:
         total_questions += 1
     all_questions = None
-    ref = db.collection('user_data').document('userTanish1').collection('questions')
+    ref = db.collection('user_data').document(f'{User.username}').collection('questions')
     questions = ref.stream()
     s = 0
     q = 0
@@ -58,20 +58,36 @@ def dashboardGraph(request):
                         opacity=0.8, marker_color='green')],
                         output_type='div')
 
-    new_ref = db.collection('user_data').document('userTanish1').collection('test')
+    new_ref = db.collection('user_data').document(f'{User.username}').collection('test')
     tests = new_ref.stream()
     test_size = 0
     for test in tests:
         test_size += 1
+    percent_score = 0
+    if q == 0:
+        percent_score = 0
+    else:
+        percent_score = int(s/(4*q) * 100)
 
+    test_p = 0
+    if total_questions == 0:
+        test_p = 0
+    else:
+        test_p = int(q/total_questions * 100)
+
+    t_p = 0
+    if total_questions == 0:
+        t_p = 0
+    else:
+        t_p = int((test_size / total_tests) * 100)   
     context = {
         'plot_div' : plot_div,
         'solvedQuestions' : q,
         'score' : s,
-        'percent_score' : int(s/(4*q) * 100),
+        'percent_score' : percent_score,
         'number_tests' : test_size,
-        'percent_questions_solved' : int(q/total_questions * 100),
-        'test_percentage' : int((test_size / total_tests) * 100)
+        'percent_questions_solved' : test_p,
+        'test_percentage' : t_p
     }
     return render(request, "pages/dashboard.html", context)
 
@@ -86,7 +102,7 @@ def loginPage(request) :
         user = auth.authenticate(username = username, password = password)
         if user is not None:
             auth.login(request, user)
-            return redirect('home')
+            return redirect('dashboard')
         else:
             messages.warning(request, f'Username and Password does not match')
     return render(request, "pages/login.html", {})
@@ -113,7 +129,7 @@ def signUpPage(request) :
                 'username' : username,
                 'emailid' : emailid
             })
-            return redirect('home')
+            return redirect('dashboard')
     return render(request, "pages/SignUp.html", {})
 
 def logout(request):

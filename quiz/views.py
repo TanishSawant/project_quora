@@ -1,4 +1,5 @@
 # Create your views here.
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 #import numpy as np
 
@@ -6,17 +7,6 @@ from django.shortcuts import render, redirect
 from .models import testScoreData , Question, Test
 from .tp import getDb
 import random
-
-""" import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-
-cred = credentials.Certificate("pages\quizapp-76c06s-firebase-adminsdk-z37mu-93f863e1f6.json")
-firebase_admin.initialize_app(cred)
-
-db = firestore.client()
-print("connected!!")
- """
 
 db = getDb()
 
@@ -27,10 +17,12 @@ def getRandomQuestion(request):
         arr.append(q)
 
     selected = random.choice(arr)
+
     print(selected.questionId)
     context = {
         "qid" : selected.questionId
     }
+
     return render(request, 'quiz/randomQuestion.html', context)
 
     
@@ -75,7 +67,6 @@ def quiz(request, id):
         'chem_dict' : chem_dict,
         'temp' : temp,
         'user_is_on' : user_is_on
-
     } 
     print("-----------------------------------------")
     print(phy_dict)
@@ -103,7 +94,7 @@ def quiz(request, id):
 def displayQuestionAlone(request, questionid):
     q = Question.objects.get(questionId = questionid)
     selectedOption = None
-    ref = db.collection('user_data').document('userTanish1').collection('questions')
+    ref = db.collection('user_data').document(f'{User.username}').collection('questions')
     questions = ref.stream()
     for question in questions:
         if question.id == questionid:
@@ -167,6 +158,7 @@ def displayQuestion(request,subject, questionid):
         "first_phy" : phy_dict[1],
         "first_chem" : chem_dict[1],
         "first_maths" : math_dict[1],
+        "testId" : test.testId,
     }
 
     print(request.method)
@@ -187,11 +179,8 @@ def intermediate(request, option , questionId):
     physics_questions = test.question_set.filter(subject = 'physics')
     chemistry_questions = test.question_set.filter(subject = 'chemistry')
     maths_questions = test.question_set.filter(subject = 'maths')
-    
-    new_ref = db.collection('user_data').document('userTanish1').collection('questions').document(f'{questionId}')
+    new_ref = db.collection('user_data').document(f'{User.username}').collection('questions').document(f'{questionId}')
     score = 0
-
-
     if questionId[0] == 'P':
         for i in range(len(physics_questions)):
             if physics_questions[i].questionId == questionId:
@@ -219,10 +208,14 @@ def intermediate(request, option , questionId):
         else:
             a = maths_questions[i+1]
 
-    if required_question.CorrectOption == option:
-        score += 4
-    elif option == None:
+    print("------------------------------------------------------------------")
+    print(required_question)
+    print("------------------------------------------------------------------")
+
+    if option == None:
         pass
+    elif required_question.CorrectOption == option:
+        score += 4
     else:
         score -= 1
 
@@ -241,3 +234,47 @@ def intermediate(request, option , questionId):
     }
 
     return render(request, "quiz/intermediate.html", context)
+
+
+def scoreCalc(request, testId):
+    test = Test.objects.filter(testId = testId).first()
+    print(test)
+    physics_questions = test.question_set.filter(subject = 'physics')
+    chemistry_questions = test.question_set.filter(subject = 'chemistry')
+    maths_questions = test.question_set.filter(subject = 'maths')
+    ref = db.collection('user_data').document(f'{User.username}').collection('questions')
+    questions = ref.stream()
+    phy_score = 0
+    chem_score = 0
+    math_score = 0
+    total_score = 0
+
+    for p in physics_questions:
+        for question in questions:
+            if p.questionId == question.id:
+                phy_score += question.to_dict()['score']
+    
+    for p in chemistry_questions:
+        for question in questions:
+            if p.questionId == question.id:
+                chem_score += question.to_dict()['score']
+
+    for p in maths_questions:
+        for question in questions:
+            if p.questionId == question.id:
+                math_score += question.to_dict()['score']    
+
+    total_score = math_score + phy_score + chem_score
+    context = {
+        "p" : phy_score,
+        "c" : chem_score,
+        "m" : math_score,
+        "t" : total_score
+    }
+    ref = db.collection('user_data').document(f'{User.username}').collection('test').document(f'{testId}')
+    ref.set({
+        'isComplete' : True,
+        'score' : total_score
+    })
+
+    return render(request, "quiz/exam_finished.html", context)

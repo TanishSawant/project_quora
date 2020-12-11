@@ -15,7 +15,7 @@
 		<div class="Main_header">
 			<div class="header">
 				<nav class="navbar navbar-expand-lg navbar-dark ">
-					<a class="navbar-brand" href="#">Navbar</a>
+					<a class="navbar-brand" href="#">Gurukul</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 							<span class="navbar-toggler-icon"></span>
 					</button>
@@ -25,7 +25,7 @@
                         <ul class="navbar-nav ml-auto">
                             {% if user.is_authenticated %}
                             <li class="nav-item">
-                                    <p>Welcome {{user.username}}!</p>
+                                    <p style="text-align:centre">Welcome {{user.username}}!</p>
                             </li>
                             <li class="nav-item">
                                     <a class="nav-link" href="{% url 'login' %}">Logout</a>
@@ -38,9 +38,7 @@
 	    						<a class="nav-link" href="{% url 'signup' %}">SignUp</a>
 							</li>
                             {% endif %} 
-							<li class="nav-item">
-								<a class="nav-link" href="#">AboutUs</a>
-							</li>
+							
 						</ul>
 					</div>
 				</nav>
@@ -114,7 +112,6 @@
 				<div class="card-body">
 				  <h5 class="card-title">Practice makes man perfect!</h5>
 				  <p class="card-text">We have nearly unlimited source of questions to practice in store for you! With detailed solutions</p>
-				  <a href="#" class="btn btn-primary" style="margin-top: 20px;">I'm interested!</a>
 				</div>
 		  </div>
 		  <div class="card" style="width: 20rem; margin-right: 0px;">
@@ -124,7 +121,6 @@
 			<div class="card-body">
 			  <h5 class="card-title">The world is open!</h5>
 			  <p class="card-text">Don't waste your time trying to just remember everything you study. We teach you tips and tricks to learn faster</p>
-			  <a href="#" class="btn btn-primary" style="margin-top: 20px;">See How..</a>
 			</div>
 	  </div>
 	  <div class="card" style="width: 20rem; margin-right: 0px;">
@@ -134,7 +130,7 @@
 		<div class="card-body">
 		  <h5 class="card-title">Come To Us</h5>
 		  <p class="card-text">This is the place where you can find that lost delight in studies. Under expert guidance, you won't find yourself sitting somewhere "trying" to memorize things.</p>
-		  <a href="#" class="btn btn-primary">Start now</a>
+		 
 		</div>
   </div>
 		  </div>

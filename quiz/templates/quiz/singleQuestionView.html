@@ -82,31 +82,31 @@
                                 </div>
                             </div>
                             {% if selectedOption == 'A' %}
-                            <input class="options" type="radio" id="male" name="{{ question.questionId }} " onclick="changeLink(this)" value="A" checked>
+                            <input class="options" type="radio" id="male" name="{{question.questionId}}" onclick="changeLink(this)" value="A" checked>
                             <label for="male">A</label><br>
                             {% else %}
-                            <input class="options" type="radio" id="male" name="{{ question.questionId }} " onclick="changeLink(this)" value="A">
+                            <input class="options" type="radio" id="male" name="{{question.questionId}}" onclick="changeLink(this)" value="A">
                             <label for="male">A</label><br>
                             {% endif %}
                             {% if selectedOption == 'B' %}
-                            <input class="options" type="radio" id="female" name="{ {question.questionId }} " onclick="changeLink(this)" value="B" checked>
+                            <input class="options" type="radio" id="female" name="{{question.questionId}}" onclick="changeLink(this)" value="B" checked>
                             <label for="female">B</label><br>
                             {% else %}
-                            <input class="options" type="radio" id="female" name="{ {question.questionId }} " onclick="changeLink(this)" value="B">
+                            <input class="options" type="radio" id="female" name="{{question.questionId}}" onclick="changeLink(this)" value="B">
                             <label for="female">B</label><br>
                             {% endif %}
                             {% if selectedOption == 'C' %}
-                            <input class="options" type="radio" id="other" name="{{ question.questionId }} " onclick="changeLink(this)" value="C" checked>
+                            <input class="options" type="radio" id="other" name="{{question.questionId}}" onclick="changeLink(this)" value="C" checked>
                             <label for="other">C</label><br>
                             {% else %}
-                            <input class="options" type="radio" id="other" name="{{ question.questionId }} " onclick="changeLink(this)" value="C">
+                            <input class="options" type="radio" id="other" name="{{question.questionId}}" onclick="changeLink(this)" value="C">
                             <label for="other">C</label><br>
                             {% endif %}
                             {% if selectedOption == 'D' %}
-                            <input class="options" type="radio" id="other" name="{{ question.questionId }}" onclick="changeLink(this)" value="D" checked>
+                            <input class="options" type="radio" id="other2" name="{{question.questionId}}" onclick="changeLink(this)" value="D" checked>
                             <label for="other">D</label>
                             {% else %}
-                            <input class="options" type="radio" id="other" name="{{ question.questionId }}" onclick="changeLink(this)" value="D">
+                            <input class="options" type="radio" id="other" name="{{question.questionId}}" onclick="changeLink(this)" value="D">
                             <label for="other">D</label>
                             {% endif %}
                             

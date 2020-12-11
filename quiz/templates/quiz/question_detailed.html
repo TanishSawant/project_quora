@@ -14,7 +14,6 @@
 
             <!--Main Right Hand Side Part Goes Here-->
             <div class="main">
-
                 <!--Top navbar-->
                 <nav class="navbar navbar-expand-lg navbar-dark" style="height: 70px;">
 					
@@ -81,27 +80,23 @@
                                     <p>{{ question.optionD }}</p>
                                 </div>
                             </div>
-                            <input class="options" type="radio" id="male" name="{{ question.questionId }} " onclick="changeLink(this)" value="A">
-                            <label for="male">A</label><br>
-                            <input class="options" type="radio" id="female" name="{ {question.questionId }} " onclick="changeLink(this)" value="B">
-                            <label for="female">B</label><br>
-                            <input class="options" type="radio" id="other" name="{{ question.questionId }} " onclick="changeLink(this)" value="C">
-                            <label for="other">C</label><br>
-                            <input class="options" type="radio" id="other" name="{{ question.questionId }}" onclick="changeLink(this)" value="D">
+                            <input type="radio" id="male" name="{{ question.questionId }} " onclick="changeLink(this)" value="A">
+                            <label for="male">A</label>
+                            <input type="radio" id="female" name="{{ question.questionId }} " onclick="changeLink(this)" value="B">
+                            <label for="female">B</label>
+                            <input type="radio" id="other" name="{{ question.questionId }} " onclick="changeLink(this)" value="C">
+                            <label for="other">C</label>
+                            <input type="radio" id="other2" name="{{ question.questionId }} " onclick="changeLink(this)" value="D">
                             <label for="other">D</label>
                     </div>
                     <div class="question-footer">
                         <ul class="navbar-nav mr-auto">
-                            <!-- <li class="nav-item">
-                                <a class="nav-link active" id="next" href="">Mark For Review And Next</a>
-                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" id="next1" href="">Save and Next</a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                   
             </div>
             <div class="question-part">
                 <div class="timer">
@@ -117,8 +112,10 @@
                         {% endfor %}
                     </ul>
                 <div class="options">
-                    <button class="btn btn-info">Finish Exam</button>
-                    <button class="btn btn-info">Instructions</button>
+                    <form action="POST"> {% csrf_token %}
+                        <button class="btn btn-info"><a href="/quiz/quiz/{{testId}}">Finish Exam</a></button>
+                    </form>            
+                    <h1>{{testId}}</h1>
                 </div>
             </div>
         </form>
@@ -337,27 +334,6 @@
         color: white;
     }
 
-    .options{
-        margin-bottom: auto;
-        margin-top: 100px;
-        display:flex;
-        flex-direction:row;
-        justify-content:space-evenly;
-    }
-
-    .options .btn{
-        color: white !important;
-        background-color: gray !important;
-        font-size: 18px;
-        box-shadow:0 0 5px 5px rgba(0, 0, 0, 0.1);
-        padding: 8px 40px;
-        height: 50px;
-        border-radius: 25px;
-    }
-
-    .options .btn:hover{
-        background-color: red!important;
-    }
 
     .questions ul{
         margin-top:10px;
@@ -409,6 +385,40 @@
     ul.not-active{
         display: none!important;
     }    
+    input[tpye="radio"]{
+        display: none!important;
+    }
+    label{
+        position: relative;
+        color: #01cc65;
+        font-family: 'Poppins';
+        font-size: 30px;
+        border: 2px solid #01cc65;
+        border-radius: 5px;
+        padding: 10px 50px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    label:before{
+        content: "";
+        height: 30px;
+        width: 30px;
+        border: 3px solid #01cc65;
+        border-radius: 0%;;
+        margin-right: 20px;
+    }
+    input[tpye="radio"]:checked{
+        background-color: #01cc65;
+        color: white;
+    }
+    input[tpye="radio"]:checked{
+        height: 16px;
+        width: 16px;
+        border: 10px solid white;
+        background-color: #01cc65;
+    }
 </style>
 
 
