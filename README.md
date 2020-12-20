@@ -83,20 +83,18 @@ Students opting for CET exam find it difficult to get dataset of questions for p
 
 ## Sequence Diagram:
 
-![Home Page]()
+![Sequence Diagram](./Screenshots/sequence_diagram.jfif)
 
 
 ## Screenshots
 
-![Home Page](./1608448733244.png)
+![Home Page](./Screenshots/home_page.jfif)
 
-![Dashboard 1](./1608448779982.png)
+![Dashboard 1](./Screenshots/dashboard_1.jfif)
 
-![Dashboard 2](./1608448816718.png)
+![Dashboard 2](./Screenshots/dashboard_2.jfif)
 
-![list of tests](./1608448843506.png)
+![list of tests](./Screenshots/testlist.jfif)
 
-![Alt text](./1608448857263.png)
-
-![Revision](./1608448908734.png)
+![revision](./Screenshots/solved_questions.jfif)
 
